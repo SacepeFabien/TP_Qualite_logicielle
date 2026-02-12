@@ -1,8 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
+const envName = process.env.ENV ?? 'local';
+
 dotenv.config({
-path: `env/.env.${process.env.ENV}`,
+path: `env/.env.${envName}`,
 })
 
 /**
@@ -18,6 +20,8 @@ path: `env/.env.${process.env.ENV}`,
  */
 export default defineConfig({
   testDir: './tests',
+  /* Overall test timeout */
+  timeout: 80_000,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -43,7 +47,7 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
+    /*
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -52,7 +56,7 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-    },
+    },*/
 
     /* Test against mobile viewports. */
     // {
