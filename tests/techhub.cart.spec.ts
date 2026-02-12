@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { TechHubCartPage } from '../POM/TechHubCartPage';
 import { TechHubHomePage } from '../POM/TechHubHomePage';
 import { TechHubProductPage } from '../POM/TechHubProductPage';
@@ -12,4 +12,5 @@ test('TechHub add product to cart', async ({ page }) => {
   await product.addToCart();
   await product.openCart();
   await cart.expectLoaded();
+  await expect(page.locator('[data-testid^="remove-item-"]')).toHaveCount(1);
 });
